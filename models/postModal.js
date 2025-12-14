@@ -32,7 +32,9 @@ const postSchema = mongoose.Schema(
     filter: {
       type: Array,
       required: false,
-      default: "original",
+      default: [
+        1.1, 0, 0, 0, 0, 0, 1.1, 0, 0, 0, 0, 0, 1.2, 0, 0, 0, 0, 0, 1, 0,
+      ],
     },
     image: {
       type: String,

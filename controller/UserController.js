@@ -1,4 +1,5 @@
 import { User } from "../models/UserModal.js";
+import bcrypt from 'bcrypt'
 
 export const registeruser = async (req, res) => {
   const { mobile, password, fullName, username } = req.body;
@@ -21,9 +22,13 @@ export const registeruser = async (req, res) => {
     throw new Error("Username already in use!");
   }
 
+  // hashing the password
+
+  let hashedPass = await bcrypt.hash(password ,10)
+
   let newUser = await User.create({
     mobile,
-    password,
+    password:hashedPass,
     fullName,
     username,
   });

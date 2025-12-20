@@ -42,7 +42,12 @@ const postSchema = mongoose.Schema(
     },
     user_id:{
       type:mongoose.Schema.Types.ObjectId,
-      required:true
+      required:true,
+      ref : 'user'
+    },
+    comment:{
+      type:Array,
+      default:[]
     }
   },
   {

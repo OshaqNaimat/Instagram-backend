@@ -35,3 +35,13 @@ export const getPost = async (req, res) => {
   let allPosts = await Post.find().populate('user_id','username image ').sort({createdAt: -1})
   res.send(allPosts);
 };
+
+export const addComment = async(req, res)=>{
+  const {user_id,post_id} = req.params
+  const {comment} = req.body
+
+// find the releavent post
+  const findPost = await Post.findOne({_id:post_id})
+
+  // findPost.comment = 
+}

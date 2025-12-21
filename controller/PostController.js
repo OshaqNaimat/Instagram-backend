@@ -25,7 +25,8 @@ export const addPost = async (req, res) => {
     caption,
     image,
     filter,
-    user_id
+    user_id,
+    
   });
 
   res.send(newPost);
@@ -45,7 +46,7 @@ export const addComment = async(req, res)=>{
 
     
 
-  findPost.comment.shift({
+  findPost.comment.push({
     comment,user_id,timestamps:Date.now()
   })
 

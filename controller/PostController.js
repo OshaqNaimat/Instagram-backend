@@ -43,5 +43,13 @@ export const addComment = async(req, res)=>{
 // find the releavent post
   const findPost = await Post.findOne({_id:post_id})
 
-  // findPost.comment = 
+    
+
+  findPost.comment.shift({
+    comment,user_id,timestamps:Date.now()
+  })
+
+
+  await findPost.save();
+  res.send(findPost)
 }

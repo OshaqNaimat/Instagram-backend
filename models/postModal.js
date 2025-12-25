@@ -48,7 +48,11 @@ const postSchema = mongoose.Schema(
     comment:{
       type:Array,
       default:[]
-    }
+    },
+    likes:{
+      type:Array,
+      default:[]
+    },
   },
   {
     timestamps: true,

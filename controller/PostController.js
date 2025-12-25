@@ -1,3 +1,4 @@
+import Posts from "../../frontend/src/components/Posts.jsx";
 import { Post } from "../models/postModal.js";
 
 export const addPost = async (req, res) => {
@@ -40,17 +41,26 @@ export const getPost = async (req, res) => {
 export const addComment = async(req, res)=>{
   const {user_id,post_id} = req.params
   const {comment} = req.body
-
 // find the releavent post
   const findPost = await Post.findOne({_id:post_id})
-
-    
-
   findPost.comment.push({
     comment,user_id,timestamps:Date.now()
   })
-
-
   await findPost.save();
+  res.send(findPost)
+}
+
+// likes
+
+export const addLikes = async(req,res)=>{
+  const {user_id,post_id} = req.params
+  const findPost = await Posts.findOne({_id:post_id}) 
+
+  if(findPost.Likes.includes(user_id)){
+    findPost.likes.pull(user_id)
+  }else{
+    findPost.likes.push(user_id)
+  }
+  await findPost.save()
   res.send(findPost)
 }

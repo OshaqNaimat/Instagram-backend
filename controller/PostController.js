@@ -50,21 +50,6 @@ export const addComment = async(req, res)=>{
   res.send(findPost)
 }
 
-// likes
-
-// export const addLikes = async(req,res)=>{
-//   const {user_id,post_id} = req.params
-//   const findPost = await Posts.findOne({_id:post_id}) 
-
-//   if(findPost.Likes.includes(user_id)){
-//     findPost.likes.pull(user_id)
-//   }else{
-//     findPost.likes.push(user_id)
-//   }
-//   await findPost.save()
-//   res.send(findPost)
-// }
-
 export const addLikes = async (req,res)=>{
   const {user_id,post_id} = req.params
   const findPost = await Post.findOne({_id:post_id})

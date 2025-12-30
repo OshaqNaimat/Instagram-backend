@@ -64,3 +64,12 @@ export const addLikes = async (req,res)=>{
   res.send(findPost)
 
 }
+
+
+export const relaventPosts = async(req,res)=>{
+  const {id} = req.params
+  const myPost = await Post.find({
+    user_id:id
+  })
+  res.send(myPost)
+}

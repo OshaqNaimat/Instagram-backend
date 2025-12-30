@@ -35,3 +35,11 @@ export const registeruser = async (req, res) => {
 
   res.send(newUser);
 };
+
+
+export const findUser = async(req,res)=>{
+  const {id} = req.params
+
+  const myUser = await User.findById(id)
+  res.send(myUser)
+}

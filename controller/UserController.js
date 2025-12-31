@@ -43,3 +43,8 @@ export const findUser = async(req,res)=>{
   const myUser = await User.findById(id)
   res.send(myUser)
 }
+
+export const getAllUsers = async(req,res)=>{
+   let allUsers = await User.find()
+   res.send(allUsers)
+} 

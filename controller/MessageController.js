@@ -1,4 +1,4 @@
-import { Messages } from "../models/messageModal"
+import { Messages } from "../models/messageModal.js"
 
 export const sendMessage = async(req,res)=>{
     const {message} = req.body
@@ -11,13 +11,14 @@ export const sendMessage = async(req,res)=>{
 
    if(!findChat){
     let newChat = await Messages.create({
-        chats:chat.push({message,sender_id,receiver_id}),
+        chats:[{message,sender_id,receiver_id}],
         sender_id,
         receiver_id 
     })
     res.send(newChat)
    }else{
     findChat.chats.push({message,sender_id,receiver_id})
+    await findChat.save()
     res.send(findChat)
    }
 

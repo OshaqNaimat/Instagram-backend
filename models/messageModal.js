@@ -5,7 +5,7 @@ const messageSchema = mongoose.Schema({
         type:Array,
         default:[]
     },
-    sende_id:{
+    sender_id:{
         type:mongoose.Schema.Types.ObjectId,
         required:true,
         ref:'user'

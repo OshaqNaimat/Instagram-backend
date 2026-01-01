@@ -6,7 +6,11 @@ export const sendMessage = async(req,res)=>{
 
     // check if any message exists
    let findChat = await Messages.findOne({
-    sender_id,receiver_id
+    $or:
+    [
+    {$and:[{sender_id:sender_id},{receiver_id:receiver_id}]},
+    {$and:[{sender_id:receiver_id},{receiver_id:sender_id}]}
+    ]
    })
 
    if(!findChat){

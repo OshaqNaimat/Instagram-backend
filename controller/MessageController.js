@@ -17,7 +17,7 @@ export const sendMessage = async(req,res)=>{
     let newChat = await Messages.create({
         chats:[{message,sender_id,receiver_id}],
         sender_id,
-        receiver_id 
+        receiver_id     
     })
     res.send(newChat)
    }else{

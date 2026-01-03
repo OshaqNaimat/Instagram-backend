@@ -4,6 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import color from "colors";
+import {Server} from "socket.io"
+import http from "http"
 import { connectDB } from "./config/connect.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { userRouter } from "./routes/userRoute.js";
@@ -21,3 +23,20 @@ connectDB();
 app.listen(process.env.PORT, () => {
   console.log(`server is running on port ${process.env.PORT.cyan}`);
 });
+
+
+
+const server = http.createServer(app)
+
+
+const io = new Server(server,{
+  cors:'http://localhost:5173'
+})
+
+io.on('connection',(server)=>{
+ 
+})
+
+server.listen(5000,()=>{
+  
+})

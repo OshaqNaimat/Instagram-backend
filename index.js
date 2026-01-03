@@ -20,9 +20,12 @@ app.use("/api/messages", messageRouter);
 app.use(errorHandler);
 connectDB();
 
-app.listen(process.env.PORT, () => {
-  console.log(`server is running on port ${process.env.PORT.cyan}`);
-});
+// app.listen(process.env.PORT, () => {
+//   console.log(`server is running on port ${process.env.PORT.cyan}`);
+// });
+server.listen(process.env.PORT,()=>{
+  console.log(`Server started on port ${process.env.PORT}`)
+})
 
 
 
@@ -35,8 +38,32 @@ const io = new Server(server,{
 
 io.on('connection',(socket)=>{
  console.log(`user connected on id ${socket.id}`)
+
+
+socket.on("sent_message",(data)=>{
+  socket.broadcast.emit("received_message",data)
 })
 
-server.listen(5174,()=>{
-  console.log(`Server started on port ${5174}`)
+
+// calling/receiving
+
+socket.on("calling",(data)=>{
+  socket.broadcast.emit("call_arahi_hai",(data))
 })
+
+// call declining
+
+socket.on("call_declined",(data)=>{
+  socket.broadcast.emit("nahi_uthai",data)
+})
+
+// call answer
+
+socket.on("answer_call",(data)=>{
+  socket.broadcast.emit("utha_li_ha",data)
+})
+
+})
+
+
+

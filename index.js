@@ -33,10 +33,10 @@ const io = new Server(server,{
   cors:'http://localhost:5173'
 })
 
-io.on('connection',(server)=>{
- 
+io.on('connection',(socket)=>{
+ console.log(`user connected on id ${socket.id}`)
 })
 
-server.listen(5000,()=>{
-  
+server.listen(5174,()=>{
+  console.log(`Server started on port ${5174}`)
 })

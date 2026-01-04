@@ -60,6 +60,11 @@ socket.on("answer_call",(data)=>{
   socket.broadcast.emit("utha_li_ha",data)
 })
 
+// typing value
+socket.on("typing",(data)=>{
+    socket.broadcast.emit("likh_raha_ha",data)
+})
+
 })
 
 

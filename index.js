@@ -23,9 +23,6 @@ connectDB();
 // app.listen(process.env.PORT, () => {
 //   console.log(`server is running on port ${process.env.PORT.cyan}`);
 // });
-server.listen(process.env.PORT,()=>{
-  console.log(`Server started on port ${process.env.PORT}`)
-})
 
 
 
@@ -63,6 +60,12 @@ socket.on("answer_call",(data)=>{
   socket.broadcast.emit("utha_li_ha",data)
 })
 
+})
+
+
+
+server.listen(process.env.PORT,()=>{
+  console.log(`Server started on port ${process.env.PORT}`)
 })
 
 

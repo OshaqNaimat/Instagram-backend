@@ -59,7 +59,7 @@ export const loginUser = async(req,res)=>{
     res.status(404)
     throw new Error("Email/mobile does not exist")
   }else{
-    if(bcrypt.compare(password,findMobile.password)){
+    if(await bcrypt.compare(password,findMobile.password)){
       res.send(findMobile)
     }else{
        res.status(401)

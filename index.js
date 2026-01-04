@@ -70,6 +70,8 @@ socket.on("not_typing",(data)=>{
   socket.broadcast.emit("nahi_likh_raha",data)
 })
 
+
+
 })
 
 

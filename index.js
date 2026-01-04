@@ -65,6 +65,11 @@ socket.on("typing",(data)=>{
     socket.broadcast.emit("likh_raha_ha",data)
 })
 
+// not typing 
+socket.on("not_typing",(data)=>{
+  socket.broadcast.emit("nahi_likh_raha",data)
+})
+
 })
 
 

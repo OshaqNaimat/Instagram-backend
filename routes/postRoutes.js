@@ -6,4 +6,4 @@ postRouter.post("/addPost/:user_id", addPost);
 postRouter.get("/get-post", getPost);
 postRouter.post("/add-comment/:post_id/:user_id",addComment )
 postRouter.post("/add-likes/:post_id/:user_id",addLikes )
-postRouter.get("/get-my-posts/:id",relaventPosts)
+postRouter.get("/get-my-posts/:id",relaventPosts) 

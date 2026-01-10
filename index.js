@@ -10,6 +10,7 @@ import { connectDB } from "./config/connect.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { userRouter } from "./routes/userRoute.js";
 import { messageRouter } from "./routes/messageRoute.js";
+import { sellProduct } from "./routes/productRoute.js";
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -17,6 +18,7 @@ app.use(express.urlencoded());
 app.use("/api/posts", postRouter);
 app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
+app.use("/api/products",sellProduct);
 app.use(errorHandler);
 connectDB();
 

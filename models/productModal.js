@@ -1,5 +1,6 @@
 import mongoose from "mongoose"
 
+
 const productSchema = mongoose.Schema({
     productImage:{
         type:String,
@@ -29,4 +30,5 @@ const productSchema = mongoose.Schema({
 });
 
 
-export const Product = mongoose.model("Products", productSchema)
+const Product = mongoose.model("Products", productSchema)
+export default Product

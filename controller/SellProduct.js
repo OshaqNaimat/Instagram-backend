@@ -50,4 +50,9 @@ export const sellPost = async(req,res)=>{
     res.status(400);
     throw new Error("please fill all required fields")
   }
+
+
+
+
+
 }

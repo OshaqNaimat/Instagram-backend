@@ -14,13 +14,6 @@ export const addPost = async (req, res) => {
     throw new Error("please provide all required fields");
   }
 
-  // add to mongodb
-
-  // let newPost = await Post.create({
-  //   caption,
-  //   filter,
-  //   image,
-  // });
 
   let newPost = await Post.create({
     caption,

@@ -1,38 +1,48 @@
-import Products from "../models/productModal.js";
+// import {Products} from "../models/productModal.js";
 
-export const Productsell = async (req, res) => {
-  try {
-    const { user_id } = req.params;
-    const {
-      productTitle,
-      productDescription,
-      productPrice,
-      productImage
-    } = req.body;
+// export const Productsell = async (req, res) => {
+//   try {
+//     const { user_id } = req.params;
+//     const {
+//       productTitle,
+//       productDescription,
+//       productPrice,
+//       productImage
+//     } = req.body;
 
-    // const productImage = req.file?.path; // multer image
+//     // const productImage = req.file?.path; // multer image
 
-    if (!productImage) {
-      return res.status(400).json({ message: "Image is required" });
-    }
+//     if (!productImage) {
+//       return res.status(400).json({ message: "Image is required" });
+//     }
 
-    const product = await product.create({
-      productImage,
-      productTitle,
-      productDescription,
-      productPrice,
-      user_id,
-    });
+//     const product = await product.create({
+//       productImage,
+//       productTitle,
+//       productDescription,
+//       productPrice,
+//       user_id,
+//     });
 
-    res.status(201).json({
-      success: true,
-      message: "Product listed successfully",
-      product,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+//     res.status(201).json({
+//       success: true,
+//       message: "Product listed successfully",
+//       product,
+//     });
+//   } catch (error) {
+//     res.status(500).json({
+//       success: false,
+//       message: error.message,
+//     });
+//   }
+// };
+
+
+export const sellPost = async(req,res)=>{
+  const {user_id} = req.params
+
+  if(!user_id){
+    res.status(401)
+    throw new Error("ID required")
   }
-};
+}

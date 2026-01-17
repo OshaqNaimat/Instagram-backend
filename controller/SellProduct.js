@@ -66,4 +66,14 @@ res.send(newProduct)
 
 export const getProducts = async(req,res)=>{
   let allProducts = await Product.find().populate('user_id','username image').sort({createdAt:-1})
+  res.send(allProducts)
+}
+
+
+export const relaventProducts = async (req,res)=>{
+  const {id} = req.params
+  const myProducts = await Product.find({
+    user_id:id
+  })
+  res.send(myProducts)
 }

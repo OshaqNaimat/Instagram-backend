@@ -1,5 +1,7 @@
 // import {Products} from "../models/productModal.js";
 
+import { Product } from "../models/productModal"
+
 // export const Productsell = async (req, res) => {
 //   try {
 //     const { user_id } = req.params;
@@ -52,7 +54,16 @@ export const sellPost = async(req,res)=>{
   }
 
 
+let newProduct = await Product.create({
+  image,
+  title,
+  price,
+  description
+})
+res.send(newProduct)
+}
 
 
-
+export const getProducts = async(req,res)=>{
+  let allProducts = await Product.find().populate('user_id','username image').sort({createdAt:-1})
 }

@@ -45,4 +45,9 @@ export const sellPost = async(req,res)=>{
     res.status(401)
     throw new Error("ID required")
   }
+  const {image,title,price,description} = req.body
+  if(!image || !title || !price || !description){
+    res.status(400);
+    throw new Error("please fill all required fields")
+  }
 }

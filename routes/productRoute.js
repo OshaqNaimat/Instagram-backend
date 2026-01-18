@@ -1,5 +1,5 @@
 import express from "express"
-import { Productsell } from "../controller/SellProduct.js";
+import { getProducts } from "../controller/SellProduct.js";
 export const sellProduct = express.Router();
 
-sellProduct.post("/sellproduct/:user_id",Productsell)
+sellProduct.post("/sellproduct/:user_id",getProducts)

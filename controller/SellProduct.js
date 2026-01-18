@@ -1,6 +1,6 @@
 // import {Products} from "../models/productModal.js";
 
-import { Product } from "../models/productModal"
+import { Product } from "../models/productModal.js"
 
 // export const Productsell = async (req, res) => {
 //   try {

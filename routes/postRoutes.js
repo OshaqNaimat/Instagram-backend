@@ -4,7 +4,7 @@ export const postRouter = express.Router();
 
 postRouter.post("/addPost/:user_id", addPost);
 postRouter.get("/get-post", getPost);
-postRouter.get("/get-comment", getComment);
+postRouter.get("/get-comments", getComment);
 postRouter.post("/add-comment/:post_id/:user_id",addComment )
 postRouter.post("/add-likes/:post_id/:user_id",addLikes )
 postRouter.get("/get-my-posts/:id",relaventPosts) 

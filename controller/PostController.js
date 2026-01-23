@@ -31,10 +31,26 @@ export const getPost = async (req, res) => {
   res.send(allPosts);
 };
 
-export const getComment = async(req, res)=>{
-  let allComments = await Post.find().populate('post_id','username comment').sort({createdAt: -1})
-  res.send(allComments)
-}
+export const getComment = async (req, res) => {
+  try {
+    const posts = await Post.find()
+      .populate("comment.user_id", "username image")
+      .sort({ createdAt: -1 });
+
+    const allComments = posts.flatMap(post =>
+      post.comment.map(c => ({
+        ...c,
+        post_id: post._id
+      }))
+    );
+
+    res.status(200).json(allComments);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 
 export const addComment = async(req, res)=>{
   const {user_id,post_id} = req.params

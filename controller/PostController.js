@@ -31,6 +31,11 @@ export const getPost = async (req, res) => {
   res.send(allPosts);
 };
 
+export const getComment = async(req, res)=>{
+  let allComments = await Post.find().populate('post_id','username comment').sort({createdAt: -1})
+  res.send(allComments)
+}
+
 export const addComment = async(req, res)=>{
   const {user_id,post_id} = req.params
   const {comment} = req.body

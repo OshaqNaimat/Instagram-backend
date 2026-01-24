@@ -87,3 +87,11 @@ export const relaventPosts = async(req,res)=>{
   })
   res.send(myPost)
 }
+// getting all comments
+export const relaventComments = async(req,res)=>{
+  const {id} = req.params
+  const myComment = await post.find({
+    user_id:id
+  })
+  res.send(myComment)
+}

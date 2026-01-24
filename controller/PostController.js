@@ -53,7 +53,7 @@ export const getComment = async (req, res) => {
 
 
 export const addComment = async(req, res)=>{
-  const {user_id,post_id} = req.params
+   const {user_id,post_id} = req.params
   const {comment} = req.body
 // find the releavent post
   const findPost = await Post.findOne({_id:post_id})

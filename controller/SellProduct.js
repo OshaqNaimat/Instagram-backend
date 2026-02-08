@@ -1,79 +1,64 @@
-// import {Products} from "../models/productModal.js";
+import { Product } from "../models/productModal.js";
 
-import { Product } from "../models/productModal.js"
+// ✅ Sell / Create Product (attached to user)
+export const sellProduct = async (req, res) => {
+  try {
+    const { user_id } = req.params;
+    const { image, title, price, description } = req.body;
 
-// export const Productsell = async (req, res) => {
-//   try {
-//     const { user_id } = req.params;
-//     const {
-//       productTitle,
-//       productDescription,
-//       productPrice,
-//       productImage
-//     } = req.body;
+    if (!user_id) {
+      return res.status(401).json({ message: "User ID required" });
+    }
 
-//     // const productImage = req.file?.path; // multer image
+    if (!image || !title || !price || !description) {
+      return res
+        .status(400)
+        .json({ message: "Please fill all required fields" });
+    }
 
-//     if (!productImage) {
-//       return res.status(400).json({ message: "Image is required" });
-//     }
+    const newProduct = await Product.create({
+      image,
+      title,
+      price,
+      description,
+      user_id, // 🔥 IMPORTANT: link product to user
+    });
 
-//     const product = await product.create({
-//       productImage,
-//       productTitle,
-//       productDescription,
-//       productPrice,
-//       user_id,
-//     });
-
-//     res.status(201).json({
-//       success: true,
-//       message: "Product listed successfully",
-//       product,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       success: false,
-//       message: error.message,
-//     });
-//   }
-// };
-
-
-export const sellPost = async(req,res)=>{
-  const {user_id} = req.params
-
-  if(!user_id){
-    res.status(401)
-    throw new Error("ID required")
+    res.status(201).json({
+      success: true,
+      message: "Product listed successfully",
+      product: newProduct,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
-  const {image,title,price,description} = req.body
-  if(!image || !title || !price || !description){
-    res.status(400);
-    throw new Error("please fill all required fields")
+};
+
+// ✅ Get all products (with username + image populated)
+export const getProducts = async (req, res) => {
+  try {
+    const allProducts = await Product.find()
+      .populate("user_id", "username image")
+      .sort({ createdAt: -1 });
+
+    res.status(200).json(allProducts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
+};
 
+// ✅ Get only logged-in user's products
+export const relaventProducts = async (req, res) => {
+  try {
+    const { id } = req.params;
 
-let newProduct = await Product.create({
-  image,
-  title,
-  price,
-  description
-})
-res.send(newProduct)
-}
+    const myProducts = await Product.find({ user_id: id });
 
-
-export const getProducts = async(req,res)=>{
-  let allProducts = await Product.find().populate('user_id','username image').sort({createdAt:-1})
-  res.send(allProducts)
-}
-
-
-export const relaventProducts = async (req,res)=>{
-  const {id} = req.params
-  const myProducts = await Product.find({
-    user_id:id
-  })
-  res.send(myProducts)
-}
+    res.status(200).json(myProducts);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};

@@ -4,8 +4,8 @@ import cors from "cors";
 import dotenv from "dotenv";
 dotenv.config();
 import color from "colors";
-import {Server} from "socket.io"
-import http from "http"
+import { Server } from "socket.io";
+import http from "http";
 import { connectDB } from "./config/connect.js";
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import { userRouter } from "./routes/userRoute.js";
@@ -18,7 +18,7 @@ app.use(express.urlencoded());
 app.use("/api/posts", postRouter);
 app.use("/api/users", userRouter);
 app.use("/api/messages", messageRouter);
-app.use("/api/products",sellProduct);
+app.use("/api/products", sellProduct);
 app.use(errorHandler);
 connectDB();
 
@@ -26,61 +26,52 @@ connectDB();
 //   console.log(`server is running on port ${process.env.PORT.cyan}`);
 // });
 
+const server = http.createServer(app);
 
+const io = new Server(server, {
+  cors: "http://localhost:5173",
+});
 
-const server = http.createServer(app)
+io.on("connection", (socket) => {
+  console.log(`user connected on id ${socket.id}`);
 
+  socket.on("sent_message", (data) => {
+    socket.broadcast.emit("received_message", data);
+  });
 
-const io = new Server(server,{
-  cors:'http://localhost:5173'
-})
+  // calling/receiving
 
-io.on('connection',(socket)=>{
- console.log(`user connected on id ${socket.id}`)
+  socket.on("calling", (data) => {
+    socket.broadcast.emit("call_arahi_hai", data);
+  });
 
+  // call declining
 
-socket.on("sent_message",(data)=>{
-  socket.broadcast.emit("received_message",data)
-})
+  socket.on("call_declined", (data) => {
+    socket.broadcast.emit("nahi_uthai", data);
+  });
 
+  // call answer
 
-// calling/receiving
+  socket.on("answer_call", (data) => {
+    socket.broadcast.emit("utha_li_ha", data);
+  });
 
-socket.on("calling",(data)=>{
-  socket.broadcast.emit("call_arahi_hai",(data))
-})
+  // typing value
+  socket.on("typing", (data) => {
+    socket.broadcast.emit("likh_raha_ha", data);
+  });
 
-// call declining
+  // not typing
+  socket.on("not_typing", (data) => {
+    socket.broadcast.emit("nahi_likh_raha", data);
+  });
+});
 
-socket.on("call_declined",(data)=>{
-  socket.broadcast.emit("nahi_uthai",data)
-})
+app.get("/test", (req, res) => {
+  res.send("working...");
+});
 
-// call answer
-
-socket.on("answer_call",(data)=>{
-  socket.broadcast.emit("utha_li_ha",data)
-})
-
-// typing value
-socket.on("typing",(data)=>{
-    socket.broadcast.emit("likh_raha_ha",data)
-})
-
-// not typing 
-socket.on("not_typing",(data)=>{
-  socket.broadcast.emit("nahi_likh_raha",data)
-})
-
-
-
-})
-
-
-
-server.listen(process.env.PORT,()=>{
-  console.log(`Server started on port ${process.env.PORT}`)
-})
-
-
-
+server.listen(process.env.PORT, () => {
+  console.log(`Server started on port ${process.env.PORT}`);
+});

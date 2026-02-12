@@ -16,23 +16,23 @@ const postSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    user_id:{
-      type:mongoose.Schema.Types.ObjectId,
-      required:true,
-      ref : 'user'
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "user",
     },
-    comment:{
-      type:Array,
-      default:[]
+    comment: {
+      type: Array,
+      default: [],
     },
-    likes:{
-      type:Array,
-      default:[]
+    likes: {
+      type: Array,
+      default: [],
     },
   },
   {
     timestamps: true,
-  }
+  },
 );
 
 export const Post = mongoose.model("post", postSchema);
